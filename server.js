@@ -12,7 +12,8 @@ const app = express();
 
 // Middlewares
 app.use(cors({
-    origin:"https://desonsvoice.netlify.app",
+    origin:['https://desonsvoice.netlify.app',
+    'https://de-sons-voice.vercel.app',],
     credentials:true,
 }));
 app.use(cookieParser());
@@ -25,3 +26,4 @@ app.use('/api/posts', postRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
