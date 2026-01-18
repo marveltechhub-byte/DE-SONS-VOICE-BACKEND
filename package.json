@@ -11,8 +11,7 @@
     "mongodb": "^7.0.0",
     "mongoose": "^9.1.1",
     "multer": "^2.0.2",
-    "multer-storage-cloudinary": "^4.0.0",
-    "nodemon": "^3.1.11"
+    "multer-storage-cloudinary": "^4.0.0"
   },
   "name": "backend",
   "version": "1.0.0",
@@ -20,10 +19,14 @@
   "main": "serverjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "module"
+  "type": "module",
+  "devDependencies": {
+    "nodemon": "^3.1.11"
+  }
 }
