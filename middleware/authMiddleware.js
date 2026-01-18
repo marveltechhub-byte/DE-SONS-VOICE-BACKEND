@@ -3,16 +3,15 @@ import User from "../models/User.js";
 
 const authMiddleware = async (req, res, next) => {
   try {
-    const token = req.cookies?.jwt;
+    const token = req.cookies.token; // read cookie
 
     if (!token) {
-      return res.status(401).json({ message: "Not authorized, no token" });
+      return res.status(401).json({ message: "Not authorized" });
     }
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
     const user = await User.findById(decoded.id).select("-password");
-
     if (!user) {
       return res.status(401).json({ message: "User not found" });
     }
@@ -20,8 +19,8 @@ const authMiddleware = async (req, res, next) => {
     req.user = user;
     next();
   } catch (error) {
-    console.error("AUTH ERROR:", error.message);
-    return res.status(401).json({ message: "Not authorized" });
+    console.error("Auth middleware error:", error);
+    res.status(401).json({ message: "Not authorized" });
   }
 };
 
