@@ -1,14 +1,16 @@
 import jwt from "jsonwebtoken";
 
-const generateToken = (id, res) => {
-  const token = jwt.sign({ id }, process.env.JWT_SECRET, {
-    expiresIn: "7d",
-  });
+const generateToken = (userId, res) => {
+  const token = jwt.sign(
+    { id: userId },
+    process.env.JWT_SECRET,
+    { expiresIn: "7d" }
+  );
 
-  res.cookie("jwt", token, {
+  res.cookie("token", token, {
     httpOnly: true,
-    secure: false,      // MUST be false on localhost
-    sameSite: "lax",    // IMPORTANT
+    secure: true,        // REQUIRED (Render is HTTPS)
+    sameSite: "none",    // REQUIRED (Netlify / Vercel)
     maxAge: 7 * 24 * 60 * 60 * 1000,
   });
 };
